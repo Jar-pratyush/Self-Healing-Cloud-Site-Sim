@@ -407,6 +407,116 @@
   color: var(--color_runbook);
 }
 
+/* Evaluation. */
+.method_points {
+  display: grid;
+  gap: 8px;
+  margin: 6px 0 20px;
+  padding-left: 18px;
+  font-size: 14.5px;
+}
+
+.hypothesis_tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--color_line);
+}
+
+.hypothesis_tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: -1px;
+  padding: 9px 14px;
+  border: 1px solid transparent;
+  border-radius: 8px 8px 0 0;
+  background: transparent;
+  font-size: 13.5px;
+  color: var(--color_text_muted);
+  cursor: pointer;
+}
+
+.hypothesis_tabs button[aria-selected="true"] {
+  border-color: var(--color_line);
+  border-bottom-color: var(--color_bg_raised);
+  background: var(--color_bg_raised);
+  color: var(--color_text);
+}
+
+.tab_light {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+
+.tab_light.is_pass {
+  background: var(--color_agent);
+}
+
+.tab_light.is_partial {
+  background: linear-gradient(90deg, var(--color_agent) 50%, var(--color_hpa) 50%);
+}
+
+.tab_light.is_open {
+  background: var(--color_hpa);
+}
+
+.hypothesis_panel {
+  padding-top: 18px;
+}
+
+.hypothesis_statement {
+  margin: 0;
+  font-size: 16px;
+  color: var(--color_text);
+}
+
+.hypothesis_comparison {
+  margin: 6px 0 0;
+  font-size: 12px;
+  color: var(--color_text_faint);
+}
+
+.verdict_list {
+  display: grid;
+  gap: 6px;
+  margin: 16px 0 6px;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.verdict_list li {
+  padding: 8px 12px;
+  border-left: 3px solid var(--verdict_color);
+  border-radius: 0 6px 6px 0;
+  background: color-mix(in srgb, var(--verdict_color) 10%, transparent);
+  color: var(--color_text);
+}
+
+.verdict_list .is_pass {
+  --verdict_color: var(--color_agent);
+}
+
+.verdict_list .is_partial,
+.verdict_list .is_open {
+  --verdict_color: var(--color_hpa);
+}
+
+.test_group {
+  margin-top: 18px;
+}
+
+.test_table td,
+.test_table th {
+  white-space: nowrap;
+}
+
+.test_versus {
+  color: var(--color_text_faint);
+}
+
 @media (max-width: 1080px) {
   .phase_track {
     grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -444,4 +554,8 @@
 .setting_table .data_table td {
   text-align: right;
   white-space: nowrap;
+}
+
+.keep_case {
+  text-transform: none;
 }
