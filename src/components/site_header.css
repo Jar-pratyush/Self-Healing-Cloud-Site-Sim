@@ -280,6 +280,20 @@
     gap: 10px;
   }
 
+  .header_controls {
+    gap: 6px;
+  }
+
+  .menu_button {
+    width: 36px;
+    padding: 0;
+    justify-content: center;
+  }
+
+  .menu_button_label {
+    display: none;
+  }
+
   .brand_text {
     display: none;
   }

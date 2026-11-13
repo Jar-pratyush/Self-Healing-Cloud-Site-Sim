@@ -712,3 +712,19 @@
     width: 100%;
   }
 }
+
+@media (max-width: 360px) {
+  .transport {
+    gap: 6px;
+    padding: 6px 8px;
+  }
+
+  .transport_scrubber {
+    min-width: 40px;
+  }
+
+  .transport_time {
+    min-width: 0;
+    font-size: 12px;
+  }
+}
