@@ -2,28 +2,35 @@
 /* Default palette is the night "control room"; the light "paper" palette follows below. */
 
 :root {
-  --color_bg: #0b1016;
-  --color_bg_raised: #101821;
-  --color_panel: #141e29;
-  --color_panel_strong: #1a2633;
-  --color_line: #243344;
-  --color_line_soft: #1a2633;
-  --color_grid: rgba(132, 170, 210, 0.055);
-  --color_text: #ece6da;
-  --color_text_muted: #a3adb8;
-  --color_text_faint: #838f9b;
+  --color_bg: #0c0a1d;
+  --color_bg_raised: #120f28;
+  --color_panel: #181434;
+  --color_panel_strong: #211c45;
+  --color_line: #2f2960;
+  --color_line_soft: #211c45;
+  --color_grid: rgba(160, 140, 255, 0.06);
+  --color_text: #f4f1ff;
+  --color_text_muted: #bdb7e0;
+  --color_text_faint: #8a84bb;
 
-  --color_agent: #2fbf8f;
-  --color_agent_soft: rgba(47, 191, 143, 0.14);
-  --color_agent_cold: #9fc9b6;
-  --color_runbook: #8b90f5;
-  --color_hpa: #e3a93e;
-  --color_k8s: #8e9aa7;
-  --color_fault: #f05a3c;
-  --color_fault_soft: rgba(240, 90, 60, 0.14);
-  --color_focus: #f2d36b;
+  --color_agent: #34f5a4;
+  --color_agent_soft: rgba(52, 245, 164, 0.14);
+  --color_agent_cold: #a6f0dc;
+  --color_runbook: #6ea8ff;
+  --color_hpa: #ffc145;
+  --color_k8s: #a3a9c9;
+  --color_fault: #ff4f7b;
+  --color_fault_soft: rgba(255, 79, 123, 0.14);
+  --color_focus: #ffe45c;
 
-  --shadow_panel: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+  --shadow_panel: 0 1px 0 rgba(255, 255, 255, 0.04) inset, 0 22px 48px -26px rgba(4, 2, 20, 0.9);
+
+  /* Night-only decoration: a soft glow behind the page and a gradient on the hero accent. */
+  --page_glow:
+    radial-gradient(60rem 36rem at 85% -8rem, rgba(110, 168, 255, 0.16), transparent 70%),
+    radial-gradient(48rem 30rem at 0% 12rem, rgba(52, 245, 164, 0.1), transparent 70%);
+  --accent_fill: linear-gradient(95deg, #34f5a4 10%, #6ea8ff 90%);
+  --accent_text_fill: transparent;
 
   --font_display: "Bricolage Grotesque Variable", "Segoe UI", system-ui, sans-serif;
   --font_body: "Instrument Sans Variable", "Segoe UI", system-ui, sans-serif;
@@ -43,6 +50,9 @@
 
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
+    --page_glow: none;
+    --accent_fill: none;
+    --accent_text_fill: currentColor;
     --color_bg: #f4efe4;
     --color_bg_raised: #f9f5ec;
     --color_panel: #fffdf8;
@@ -71,6 +81,9 @@
 }
 
 :root[data-theme="light"] {
+    --page_glow: none;
+    --accent_fill: none;
+    --accent_text_fill: currentColor;
   --color_bg: #f4efe4;
   --color_bg_raised: #f9f5ec;
   --color_panel: #fffdf8;

@@ -5,6 +5,9 @@
 }
 
 html {
+  background-color: var(--color_bg);
+  background-image: var(--page_glow);
+  background-repeat: no-repeat;
   -webkit-text-size-adjust: 100%;
   scroll-behavior: smooth;
   scroll-padding-top: 84px;
@@ -13,7 +16,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
-  background-color: var(--color_bg);
+  background-color: transparent;
   background-image:
     linear-gradient(var(--color_grid) 1px, transparent 1px),
     linear-gradient(90deg, var(--color_grid) 1px, transparent 1px);

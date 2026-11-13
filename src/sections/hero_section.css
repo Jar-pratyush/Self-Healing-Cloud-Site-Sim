@@ -29,6 +29,10 @@
 .hero_title em {
   font-style: normal;
   color: var(--color_agent);
+  background-image: var(--accent_fill);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: var(--accent_text_fill);
 }
 
 .hero_subtitle {
