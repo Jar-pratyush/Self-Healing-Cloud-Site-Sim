@@ -180,10 +180,23 @@ def parse_env_file(text: str) -> dict[str, str]:
     return values
 
 
+def parse_stats_constants(source_text: str) -> dict[str, float]:
+    # Reads the pre-registered analysis constants from eval/stats.py.
+    names = {"BOOTSTRAP_RESAMPLES": "bootstrap_resamples", "CI_LEVEL": "ci_level", "NI_MARGIN_S": "non_inferiority_margin_s", "ALPHA": "alpha"}
+    constants = {}
+    for code_name, export_name in names.items():
+        match = re.search(rf"^{code_name}\s*=\s*([0-9_.]+)", source_text, flags=re.MULTILINE)
+        if not match:
+            raise ExportError(f"eval/stats.py: constant {code_name} not found")
+        constants[export_name] = float(match.group(1).replace("_", ""))
+    return constants
+
+
 def build_config(sources: SourceLog) -> dict[str, Any]:
     contract = yaml.safe_load(sources.file("config/contract.yaml").read_text(encoding="utf-8"))
     calibration = json.loads(sources.file("config/calibration.json").read_text(encoding="utf-8"))
     catalog = parse_action_catalog(sources.file("env/k8s_actions.py").read_text(encoding="utf-8"))
+    statistics_constants = parse_stats_constants(sources.file("eval/stats.py").read_text(encoding="utf-8"))
     edge_link = parse_env_file(sources.file("config/runs/edge_degraded.env").read_text(encoding="utf-8"))
 
     managed = list(contract["cluster"]["managed"])
@@ -231,6 +244,7 @@ def build_config(sources: SourceLog) -> dict[str, Any]:
         "locust": {"wait_s": contract["locust"]["wait_s"], "request_timeout_s": contract["locust"]["request_timeout_s"]},
         "actions": catalog,
         "observation_names": observation_names,
+        "statistics": statistics_constants,
         "edge_link": {
             "delay": edge_link.get("NETEM_DELAY"),
             "jitter": edge_link.get("NETEM_JITTER"),

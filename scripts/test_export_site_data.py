@@ -36,6 +36,18 @@ class EnvFileTests(unittest.TestCase):
         self.assertEqual(exporter.parse_env_file(text), {"NETEM_DELAY": "150ms", "NETEM_LOSS": "1%"})
 
 
+class StatsConstantsTests(unittest.TestCase):
+    def test_constants_are_read(self):
+        text = "BOOTSTRAP_RESAMPLES = 10_000\nCI_LEVEL = 0.95\nNI_MARGIN_S = 20.0   # one tick\nALPHA = 0.05\n"
+        constants = exporter.parse_stats_constants(text)
+        self.assertEqual(constants["bootstrap_resamples"], 10000)
+        self.assertEqual(constants["non_inferiority_margin_s"], 20.0)
+
+    def test_missing_constant_fails(self):
+        with self.assertRaises(exporter.ExportError):
+            exporter.parse_stats_constants("ALPHA = 0.05\n")
+
+
 class ActionCatalogTests(unittest.TestCase):
     source_text = """
 CATALOG: tuple[Action, ...] = (
