@@ -1,7 +1,7 @@
 import { SiteHeader } from "./components/site_header";
 import { ViewModeProvider } from "./state/view_mode_provider";
 import { CreditsSection } from "./sections/credits_section";
-import { DeepDiveSection } from "./sections/deep_dive_section";
+import { DeepDiveSection } from "./sections/deep_dive/deep_dive_section";
 import { HeroSection } from "./sections/hero_section";
 import { HowItWorksSection } from "./sections/how_it_works_section";
 import { ProblemSection } from "./sections/problem_section";
