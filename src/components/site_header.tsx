@@ -1,3 +1,4 @@
+import { useEffect, useRef, useState } from "react";
 import { section_list } from "../content/section_list";
 import { useActiveSection } from "../hooks/use_active_section";
 import { useViewMode, type AudienceMode } from "../state/view_mode_context";
@@ -15,9 +16,52 @@ export function SiteHeader() {
   const { audience_mode, set_audience_mode, theme_mode, toggle_theme_mode } = useViewMode();
   const active_id = useActiveSection(section_ids);
   const next_theme_label = theme_mode === "dark" ? "Switch to paper theme" : "Switch to night theme";
+  const [is_menu_open, set_is_menu_open] = useState(false);
+  const header_ref = useRef<HTMLElement>(null);
+  const menu_button_ref = useRef<HTMLButtonElement>(null);
+  const active_entry = section_list.find((entry) => entry.section_id === active_id);
+
+  // The phone menu closes on Escape (returning focus to its button) and on
+  // any press outside the header.
+  useEffect(() => {
+    if (!is_menu_open) {
+      return;
+    }
+    const close_on_escape = (key_event: KeyboardEvent) => {
+      if (key_event.key === "Escape") {
+        set_is_menu_open(false);
+        menu_button_ref.current?.focus();
+      }
+    };
+    const close_on_outside = (pointer_event: PointerEvent) => {
+      if (header_ref.current && !header_ref.current.contains(pointer_event.target as Node)) {
+        set_is_menu_open(false);
+      }
+    };
+    document.addEventListener("keydown", close_on_escape);
+    document.addEventListener("pointerdown", close_on_outside);
+    return () => {
+      document.removeEventListener("keydown", close_on_escape);
+      document.removeEventListener("pointerdown", close_on_outside);
+    };
+  }, [is_menu_open]);
+
+  const section_links = (link_class: string) =>
+    section_list.map((entry) => (
+      <a
+        key={entry.section_id}
+        href={`#${entry.section_id}`}
+        className={entry.section_id === active_id ? `${link_class} is_active` : link_class}
+        aria-current={entry.section_id === active_id ? "location" : undefined}
+        onClick={() => set_is_menu_open(false)}
+      >
+        <span className="section_nav_number">§{entry.section_number}</span>
+        {entry.nav_label}
+      </a>
+    ));
 
   return (
-    <header className="site_header">
+    <header className="site_header" ref={header_ref}>
       <div className="page_width site_header_row">
         <a className="brand_link" href="#top" aria-label="Self-Healing Cloud, back to top">
           <BrandMark size={30} />
@@ -28,20 +72,22 @@ export function SiteHeader() {
         </a>
 
         <nav className="section_nav" aria-label="Sections">
-          {section_list.map((entry) => (
-            <a
-              key={entry.section_id}
-              href={`#${entry.section_id}`}
-              className={entry.section_id === active_id ? "section_nav_link is_active" : "section_nav_link"}
-              aria-current={entry.section_id === active_id ? "location" : undefined}
-            >
-              <span className="section_nav_number">§{entry.section_number}</span>
-              {entry.nav_label}
-            </a>
-          ))}
+          {section_links("section_nav_link")}
         </nav>
 
         <div className="header_controls">
+          <button
+            ref={menu_button_ref}
+            type="button"
+            className="menu_button"
+            aria-expanded={is_menu_open}
+            aria-controls="section_menu"
+            onClick={() => set_is_menu_open((was_open) => !was_open)}
+          >
+            <span className="menu_button_label">{active_entry ? `§${active_entry.section_number}` : "Menu"}</span>
+            <span className="menu_button_icon" aria-hidden="true" />
+            <span className="visually_hidden">Sections</span>
+          </button>
           <div className="audience_switch" role="group" aria-label="Level of detail">
             {audience_options.map((option) => (
               <button
@@ -82,6 +128,10 @@ export function SiteHeader() {
           </button>
         </div>
       </div>
+
+      <nav id="section_menu" className={is_menu_open ? "section_menu is_open" : "section_menu"} aria-label="Sections">
+        <div className="page_width section_menu_list">{section_links("section_menu_link")}</div>
+      </nav>
     </header>
   );
 }

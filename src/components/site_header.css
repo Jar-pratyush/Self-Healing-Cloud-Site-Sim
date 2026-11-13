@@ -135,6 +135,96 @@
   border-color: var(--color_text_faint);
 }
 
+/* Phone and tablet menu: a button in the header opens a dropdown list of sections. */
+.menu_button {
+  display: none;
+  align-items: center;
+  gap: 8px;
+  height: 36px;
+  padding: 0 12px;
+  border: 1px solid var(--color_line);
+  border-radius: var(--radius_control);
+  background: var(--color_bg_raised);
+  color: var(--color_text);
+  font-family: var(--font_mono);
+  font-size: 12.5px;
+  cursor: pointer;
+}
+
+.menu_button_icon,
+.menu_button_icon::before,
+.menu_button_icon::after {
+  display: block;
+  width: 14px;
+  height: 1.6px;
+  border-radius: 2px;
+  background: currentColor;
+  transition: transform 220ms var(--ease_settle), opacity 160ms ease;
+}
+
+.menu_button_icon {
+  position: relative;
+}
+
+.menu_button_icon::before,
+.menu_button_icon::after {
+  content: "";
+  position: absolute;
+  left: 0;
+}
+
+.menu_button_icon::before {
+  top: -4.5px;
+}
+
+.menu_button_icon::after {
+  top: 4.5px;
+}
+
+.menu_button[aria-expanded="true"] .menu_button_icon {
+  background: transparent;
+}
+
+.menu_button[aria-expanded="true"] .menu_button_icon::before {
+  transform: translateY(4.5px) rotate(45deg);
+}
+
+.menu_button[aria-expanded="true"] .menu_button_icon::after {
+  transform: translateY(-4.5px) rotate(-45deg);
+}
+
+.section_menu {
+  display: none;
+}
+
+.section_menu_list {
+  display: grid;
+  gap: 2px;
+  padding-top: 8px;
+  padding-bottom: 12px;
+}
+
+.section_menu_link {
+  display: flex;
+  align-items: baseline;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  font-size: 16px;
+  color: var(--color_text_muted);
+  text-decoration: none;
+}
+
+.section_menu_link:hover,
+.section_menu_link.is_active {
+  color: var(--color_text);
+  background: var(--color_panel_strong);
+}
+
+.section_menu_link.is_active .section_nav_number {
+  color: var(--color_agent);
+}
+
 @media (max-width: 1080px) {
   .section_nav {
     display: none;
@@ -142,6 +232,31 @@
 
   .header_controls {
     margin-left: auto;
+  }
+
+  .menu_button {
+    display: inline-flex;
+  }
+
+  .section_menu.is_open {
+    display: block;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    max-height: calc(100vh - 64px);
+    overflow-y: auto;
+    border-bottom: 1px solid var(--color_line);
+    background: var(--color_bg);
+    box-shadow: 0 24px 40px -24px rgba(0, 0, 0, 0.6);
+    animation: section_menu_drop 220ms var(--ease_settle);
+  }
+}
+
+@keyframes section_menu_drop {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
   }
 }
 
