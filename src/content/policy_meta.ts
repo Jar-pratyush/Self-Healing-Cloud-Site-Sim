@@ -57,6 +57,12 @@ export function policy_color(policy_id: string): string {
   return policy_meta[policy_id]?.color_var ?? "var(--color_text_muted)";
 }
 
+// Line charts dash the cold start so it never relies on colour alone to be
+// told apart from the warm-started agent.
+export function policy_dash(policy_id: string): string | undefined {
+  return policy_id === "sac_per_cold" ? "7 5" : undefined;
+}
+
 // Both warm-start seeds are the agent, so they share its colour and differ
 // by line style; the cold start uses the cold-agent colour.
 export const training_run_meta: Record<string, { label: string; color_var: string; dash: string | undefined }> = {

@@ -2,7 +2,7 @@ import { DeepPanel } from "../../components/deep_panel";
 import { SectionFrame } from "../../components/section_frame";
 import { fault_meta } from "../../content/fault_meta";
 import { format_number, format_seconds } from "../../content/format_values";
-import { policy_color, policy_label } from "../../content/policy_meta";
+import { policy_color, policy_dash, policy_label } from "../../content/policy_meta";
 import type { EpisodeIndex, MeasurementData, ResultsData, SafetyTotals, SiteConfig, TestRow, TrainingRun } from "../../data/data_types";
 import { useSiteData } from "../../data/use_site_data";
 import { ActionsTable } from "./actions_table";
@@ -123,7 +123,7 @@ export function ResultsSection() {
             {results ? (
               <figure className="figure_block">
                 <SurvivalChart curves={results.km_curves} policies={main_policies} censor_s={config.episode.censor_s} />
-                <PolicyLegend policies={main_policies} />
+                <PolicyLegend policies={main_policies} as_lines />
                 <figcaption className="figure_caption">
                   <strong>Fig. 5</strong>
                   Share of the {agent.fault_episodes} fault episodes still broken after a given time (Kaplan-Meier,
@@ -298,12 +298,18 @@ export function ResultsSection() {
   );
 }
 
-function PolicyLegend({ policies }: { policies: string[] }) {
+function PolicyLegend({ policies, as_lines = false }: { policies: string[]; as_lines?: boolean }) {
   return (
     <ul className="chart_legend">
       {policies.map((policy) => (
         <li key={policy} style={{ ["--legend_color" as string]: policy_color(policy) }}>
-          <span className="legend_dot" />
+          {as_lines ? (
+            <svg className="legend_line" width="26" height="8" aria-hidden="true">
+              <line x1="0" x2="26" y1="4" y2="4" stroke="var(--legend_color)" strokeWidth="2.4" strokeDasharray={policy_dash(policy)} />
+            </svg>
+          ) : (
+            <span className="legend_dot" />
+          )}
           {policy_label(policy)}
         </li>
       ))}

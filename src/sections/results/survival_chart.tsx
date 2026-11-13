@@ -1,4 +1,4 @@
-import { policy_color, policy_label } from "../../content/policy_meta";
+import { policy_color, policy_dash, policy_label } from "../../content/policy_meta";
 import type { KmPoint } from "../../data/data_types";
 import { useElementWidth } from "../../hooks/use_element_width";
 
@@ -51,7 +51,7 @@ export function SurvivalChart({ curves, policies, censor_s }: SurvivalChartProps
           const { path, end_share } = step_path(curves[policy] ?? []);
           return (
             <g key={policy}>
-              <path d={path} fill="none" stroke={policy_color(policy)} strokeWidth={policy === "sac_per" ? 2.8 : 1.9} strokeLinejoin="round" />
+              <path d={path} fill="none" stroke={policy_color(policy)} strokeWidth={policy === "sac_per" ? 2.8 : 1.9} strokeDasharray={policy_dash(policy)} strokeLinejoin="round" />
               <title>{`${policy_label(policy)}: ${Math.round(end_share * 100)}% still broken at ${censor_s} s`}</title>
             </g>
           );
