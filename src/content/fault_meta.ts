@@ -51,6 +51,23 @@ export const fault_meta: Record<FaultCode, FaultMeta> = {
 
 export const fault_codes: FaultCode[] = ["F1", "F2", "F3", "F4", "NULL"];
 
+// The single action that repairs a fault on a given target, as named in the
+// action catalog. F2 and F3 depend on which service was hit.
+export function repair_action(fault: FaultCode, target: string | null): string {
+  switch (fault) {
+    case "F1":
+      return "RESTORE productcatalogservice";
+    case "F2":
+      return `RESTART ${target ?? "target"}`;
+    case "F3":
+      return `RESTORE ${target ?? "target"}`;
+    case "F4":
+      return "SCALE_UP frontend";
+    default:
+      return "NOOP";
+  }
+}
+
 // Severity as recorded: F1 extra latency, F2 CPU workers, F4 load multiplier.
 export function severity_label(fault: FaultCode, severity: string | number | null): string | null {
   if (severity === null || severity === undefined) {
