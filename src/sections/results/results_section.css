@@ -201,6 +201,7 @@ button.recovery_cell:hover {
 
 /* Actions table. */
 .actions_table th[scope="row"] {
+  vertical-align: top;
   font-family: var(--font_body);
   font-size: 13.5px;
   font-weight: 500;
@@ -244,6 +245,24 @@ button.recovery_cell:hover {
 
 .sequence_more {
   color: var(--color_text_faint);
+}
+
+/* On narrow screens the fault column stays put while the policy columns scroll. */
+@media (max-width: 760px) {
+  .actions_table th[scope="row"],
+  .actions_table thead th:first-child {
+    position: sticky;
+    left: 0;
+    z-index: 1;
+    padding-left: 2px;
+    background: var(--color_bg);
+    box-shadow: 8px 0 10px -8px rgba(0, 0, 0, 0.35);
+  }
+
+  .actions_table th[scope="row"] {
+    white-space: normal;
+    min-width: 112px;
+  }
 }
 
 /* Replication cards. */
