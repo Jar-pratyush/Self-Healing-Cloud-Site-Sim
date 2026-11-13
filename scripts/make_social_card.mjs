@@ -14,16 +14,17 @@ const card_width = 1200;
 const card_height = 630;
 
 const palette = {
-  background: "#0b1016",
-  panel: "#101821",
-  line: "#243344",
-  grid: "rgba(132, 170, 210, 0.07)",
-  text: "#ece6da",
-  muted: "#a3adb8",
-  faint: "#838f9b",
-  agent: "#2fbf8f",
-  baseline: "#8e9aa7",
-  fault: "#f05a3c",
+  background: "#0c0a1d",
+  panel: "#120f28",
+  line: "#2f2960",
+  grid: "rgba(160, 140, 255, 0.07)",
+  text: "#f4f1ff",
+  muted: "#bdb7e0",
+  faint: "#8a84bb",
+  agent: "#34f5a4",
+  runbook: "#6ea8ff",
+  baseline: "#a3a9c9",
+  fault: "#ff4f7b",
 };
 
 async function font_face(family, file_path, weight) {
@@ -72,10 +73,9 @@ async function render_card() {
   const last_baseline = baseline_points[baseline_points.length - 1] ?? [0, 0];
 
   const fonts = [
-    await font_face("Fraunces", "@fontsource-variable/fraunces/files/fraunces-latin-opsz-normal.woff2", "100 900"),
-    await font_face("Plex Sans", "@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-400-normal.woff2", 400),
-    await font_face("Plex Sans", "@fontsource/ibm-plex-sans/files/ibm-plex-sans-latin-500-normal.woff2", 500),
-    await font_face("Plex Mono", "@fontsource/ibm-plex-mono/files/ibm-plex-mono-latin-400-normal.woff2", 400),
+    await font_face("Bricolage", "@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-opsz-normal.woff2", "200 800"),
+    await font_face("Instrument", "@fontsource-variable/instrument-sans/files/instrument-sans-latin-wght-normal.woff2", "400 700"),
+    await font_face("JetBrains", "@fontsource-variable/jetbrains-mono/files/jetbrains-mono-latin-wght-normal.woff2", "100 800"),
   ].join("\n");
   const favicon = await readFile(path.join(root_dir, "public", "favicon.svg"), "utf8");
 
@@ -83,19 +83,22 @@ async function render_card() {
 <html><head><meta charset="utf-8"><style>
 ${fonts}
 * { margin: 0; box-sizing: border-box; }
-body { width: ${card_width}px; height: ${card_height}px; background: ${palette.background}; color: ${palette.text}; font-family: "Plex Sans"; overflow: hidden;
+body { width: ${card_width}px; height: ${card_height}px; background: ${palette.background}; color: ${palette.text}; font-family: "Instrument"; overflow: hidden;
   background-image: linear-gradient(${palette.grid} 1px, transparent 1px), linear-gradient(90deg, ${palette.grid} 1px, transparent 1px); background-size: 30px 30px; }
 .text { position: absolute; left: 72px; top: 70px; width: 520px; }
-.brand { display: flex; align-items: center; gap: 14px; font-family: "Plex Mono"; font-size: 17px; letter-spacing: 0.14em; text-transform: uppercase; color: ${palette.faint}; }
+.brand { display: flex; align-items: center; gap: 14px; font-family: "JetBrains"; font-size: 17px; letter-spacing: 0.14em; text-transform: uppercase; color: ${palette.faint}; }
 .brand svg { width: 44px; height: 44px; }
-h1 { margin-top: 64px; font-family: "Fraunces"; font-weight: 600; font-size: 74px; line-height: 0.98; letter-spacing: -0.02em; font-variation-settings: "opsz" 144; }
+h1 { margin-top: 60px; font-family: "Bricolage"; font-weight: 760; font-size: 76px; line-height: 0.94; letter-spacing: -0.035em; }
+h1 em { font-style: normal; background: linear-gradient(95deg, ${palette.agent} 10%, ${palette.runbook} 90%); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.glow { position: absolute; inset: 0; background: radial-gradient(700px 420px at 92% -10%, rgba(110, 168, 255, 0.2), transparent 70%), radial-gradient(560px 380px at 0% 40%, rgba(52, 245, 164, 0.12), transparent 70%); }
 p { margin-top: 30px; font-size: 25px; line-height: 1.4; color: ${palette.muted}; }
-.foot { position: absolute; left: 72px; bottom: 56px; font-family: "Plex Mono"; font-size: 16px; color: ${palette.faint}; letter-spacing: 0.04em; }
-svg.chart text { font-family: "Plex Mono"; font-size: 15px; }
+.foot { position: absolute; left: 72px; bottom: 56px; font-family: "JetBrains"; font-size: 16px; color: ${palette.faint}; letter-spacing: 0.04em; }
+svg.chart text { font-family: "JetBrains"; font-size: 15px; }
 </style></head><body>
+<div class="glow"></div>
 <div class="text">
   <div class="brand">${favicon}<span>Reinforcement learning capstone</span></div>
-  <h1>Self-Healing Cloud Infrastructure</h1>
+  <h1>Self-Healing Cloud <em>Infrastructure</em></h1>
   <p>An agent that learned to repair a live Kubernetes cluster, replayed from real recorded incidents.</p>
 </div>
 <div class="foot">K3s · Online Boutique · Chaos Mesh · discrete SAC</div>
