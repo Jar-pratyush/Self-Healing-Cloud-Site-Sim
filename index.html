@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Self-Healing Cloud Infrastructure</title>
+    <meta
+      name="description"
+      content="A reinforcement learning agent that watches a live Kubernetes cluster every 20 seconds and repairs it after real injected faults. B.Tech capstone: method, recorded episodes and pre-registered results."
+    />
+    <meta name="theme-color" content="#0B1016" media="(prefers-color-scheme: dark)" />
+    <meta name="theme-color" content="#F4EFE4" media="(prefers-color-scheme: light)" />
+    <meta name="color-scheme" content="dark light" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="Self-Healing Cloud Infrastructure" />
+    <meta
+      property="og:description"
+      content="Reinforcement learning that repairs a live Kubernetes cluster. Real faults, real recordings, pre-registered results."
+    />
+    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:title" content="Self-Healing Cloud Infrastructure" />
+
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="icon" href="/icons/icon_32.png" type="image/png" sizes="32x32" />
+    <link rel="apple-touch-icon" href="/icons/apple_touch_icon.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+
+    <script>
+      // Applies the saved theme before first paint so the page never flashes
+      // the wrong palette. Storage can be blocked, so every access is guarded.
+      try {
+        var saved_theme = localStorage.getItem("theme_mode");
+        if (saved_theme === "light" || saved_theme === "dark") {
+          document.documentElement.setAttribute("data-theme", saved_theme);
+        }
+        var saved_audience = localStorage.getItem("audience_mode");
+        document.documentElement.setAttribute(
+          "data-audience",
+          saved_audience === "technical" ? "technical" : "plain"
+        );
+      } catch (storage_error) {
+        document.documentElement.setAttribute("data-audience", "plain");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <noscript>
+      <p style="padding: 24px; font-family: sans-serif">
+        This site replays recorded episodes with JavaScript. Please enable it to view the project.
+      </p>
+    </noscript>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

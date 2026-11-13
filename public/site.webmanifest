@@ -1,0 +1,14 @@
+{
+  "name": "Self-Healing Cloud Infrastructure",
+  "short_name": "Self-Healing Cloud",
+  "description": "A reinforcement learning agent that repairs a live Kubernetes cluster, trained and evaluated on real faults.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#0B1016",
+  "theme_color": "#0B1016",
+  "icons": [
+    { "src": "/icons/icon_192.png", "sizes": "192x192", "type": "image/png" },
+    { "src": "/icons/icon_512.png", "sizes": "512x512", "type": "image/png" },
+    { "src": "/icons/icon_maskable_512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" }
+  ]
+}
