@@ -23,7 +23,7 @@ export function TrainingPhases({ config, training }: TrainingPhasesProps) {
       <ol className="phase_track">
         <li className="phase_card is_data">
           <span className="phase_step mono">data</span>
-          <h5>Runbook demonstrations</h5>
+          <h4 className="phase_title">Runbook demonstrations</h4>
           <p>
             {config.runbook.warmstart_episodes} episodes of the scripted runbook on the live cluster, with a random
             valid action instead of the runbook's choice {Math.round((config.runbook.warmstart_epsilon ?? 0) * 100)} %
@@ -32,7 +32,7 @@ export function TrainingPhases({ config, training }: TrainingPhasesProps) {
         </li>
         <li className="phase_card is_offline">
           <span className="phase_step mono">offline</span>
-          <h5>Warm start</h5>
+          <h4 className="phase_title">Warm start</h4>
           <p>
             {config.rl.offline_warmstart_steps} gradient steps on that data, no cluster time. The actor is trained by
             behaviour cloning; the critics by the SAC loss plus a CQL penalty (weight {config.rl.offline_cql_weight})
@@ -42,7 +42,7 @@ export function TrainingPhases({ config, training }: TrainingPhasesProps) {
         </li>
         <li className="phase_card is_online">
           <span className="phase_step mono">online</span>
-          <h5>Learning on the cluster</h5>
+          <h4 className="phase_title">Learning on the cluster</h4>
           <p>
             {warm_episodes} training episodes per seed ({seed_one_episodes ? `seeds 0 and 1` : "seed 0"}),{" "}
             {updates_per_tick} gradient updates every tick. The CQL penalty stays on and the temperature is held at
@@ -52,7 +52,7 @@ export function TrainingPhases({ config, training }: TrainingPhasesProps) {
         </li>
         <li className="phase_card is_cold">
           <span className="phase_step mono">ablation</span>
-          <h5>Cold start</h5>
+          <h4 className="phase_title">Cold start</h4>
           <p>
             Same online update with no warm start, for {cold_episodes} episodes, half the warm-start budget because
             of cluster time. It tests whether the runbook data helps.

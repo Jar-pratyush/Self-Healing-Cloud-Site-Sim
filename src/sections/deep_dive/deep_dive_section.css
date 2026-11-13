@@ -321,7 +321,7 @@
   border-top: 1px dashed var(--color_line);
 }
 
-.phase_card h5 {
+.phase_title {
   margin: 0;
   font-family: var(--font_body);
   font-size: 15px;
