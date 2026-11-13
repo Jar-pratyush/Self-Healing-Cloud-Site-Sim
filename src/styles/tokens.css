@@ -11,7 +11,7 @@
   --color_grid: rgba(132, 170, 210, 0.055);
   --color_text: #ece6da;
   --color_text_muted: #a3adb8;
-  --color_text_faint: #6f7c89;
+  --color_text_faint: #838f9b;
 
   --color_agent: #2fbf8f;
   --color_agent_soft: rgba(47, 191, 143, 0.14);
@@ -52,15 +52,15 @@
     --color_grid: rgba(54, 74, 104, 0.07);
     --color_text: #18202a;
     --color_text_muted: #4c5966;
-    --color_text_faint: #7b8691;
+    --color_text_faint: #606a74;
 
-    --color_agent: #0c8460;
-    --color_agent_soft: rgba(12, 132, 96, 0.12);
-    --color_agent_cold: #5f927c;
+    --color_agent: #0b7656;
+    --color_agent_soft: rgba(11, 118, 86, 0.12);
+    --color_agent_cold: #49705f;
     --color_runbook: #474cc4;
-    --color_hpa: #a8730c;
-    --color_k8s: #646f7b;
-    --color_fault: #cf3a1d;
+    --color_hpa: #8b5f0a;
+    --color_k8s: #5f6a75;
+    --color_fault: #bf361b;
     --color_fault_soft: rgba(207, 58, 29, 0.1);
     --color_focus: #9a6a00;
 
@@ -80,15 +80,15 @@
   --color_grid: rgba(54, 74, 104, 0.07);
   --color_text: #18202a;
   --color_text_muted: #4c5966;
-  --color_text_faint: #7b8691;
+  --color_text_faint: #606a74;
 
-  --color_agent: #0c8460;
-  --color_agent_soft: rgba(12, 132, 96, 0.12);
-  --color_agent_cold: #5f927c;
+  --color_agent: #0b7656;
+  --color_agent_soft: rgba(11, 118, 86, 0.12);
+  --color_agent_cold: #49705f;
   --color_runbook: #474cc4;
-  --color_hpa: #a8730c;
-  --color_k8s: #646f7b;
-  --color_fault: #cf3a1d;
+  --color_hpa: #8b5f0a;
+  --color_k8s: #5f6a75;
+  --color_fault: #bf361b;
   --color_fault_soft: rgba(207, 58, 29, 0.1);
   --color_focus: #9a6a00;
 

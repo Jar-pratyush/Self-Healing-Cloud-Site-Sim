@@ -20,7 +20,7 @@ const palette = {
   grid: "rgba(132, 170, 210, 0.07)",
   text: "#ece6da",
   muted: "#a3adb8",
-  faint: "#6f7c89",
+  faint: "#838f9b",
   agent: "#2fbf8f",
   baseline: "#8e9aa7",
   fault: "#f05a3c",
