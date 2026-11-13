@@ -115,6 +115,7 @@
 
 .replay_stage {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 24px;
 }
 
@@ -223,6 +224,7 @@
 
 .instrument_sticky {
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
   gap: 12px;
 }
 
@@ -683,7 +685,7 @@
 
 @media (max-width: 760px) {
   .lane_grid {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
   }
 
   .strip_cells {
