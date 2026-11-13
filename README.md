@@ -35,9 +35,13 @@ The per-tick replay traces come from the capstone's local `data/` folder, which 
 
 The site is static and is hosted on Cloudflare Pages. Build command `npm run build`, output directory `dist`. Cache and security headers are in `public/_headers`.
 
-## Icons
+Link previews need the site's public address. Set `SITE_URL` (for example `https://your-project.pages.dev`) as a build variable in Pages; without it the build falls back to the deployment's own URL.
+
+## Icons and link preview
 
 `public/favicon.svg` is the source. After changing it, run `npm run make_icons` to regenerate the PNG sizes in `public/icons/`.
+
+`npm run make_social_card` renders `public/social_card.png`, the image shown when the link is shared. It draws the featured replay episode, so run it after a data export that changes that episode. It needs a headless Chromium once: `npx playwright-core install chromium`.
 
 ## Credits
 

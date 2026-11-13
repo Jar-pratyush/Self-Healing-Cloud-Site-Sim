@@ -17,10 +17,11 @@ const naming_rule = [
   { selector: "function", format: ["snake_case", "PascalCase"] },
   { selector: "function", filter: { regex: "^use[A-Z]", match: true }, format: ["camelCase"] },
   { selector: "typeLike", format: ["PascalCase"] },
-  // Object literal keys are often dictated by browser or library APIs
-  // (rootMargin, assetsInlineLimit). Our own shapes are still checked
-  // through the typeProperty selector covered by "default".
+  // Object literal keys and methods are often dictated by browser or library
+  // APIs (rootMargin, assetsInlineLimit, transformIndexHtml). Our own shapes
+  // are still checked through the typeProperty selector covered by "default".
   { selector: "objectLiteralProperty", format: null },
+  { selector: "objectLiteralMethod", format: null },
   { selector: "import", format: null },
 ];
 
