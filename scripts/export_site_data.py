@@ -220,6 +220,10 @@ def build_config(sources: SourceLog) -> dict[str, Any]:
     contract = yaml.safe_load(sources.file("config/contract.yaml").read_text(encoding="utf-8"))
     calibration = json.loads(sources.file("config/calibration.json").read_text(encoding="utf-8"))
     catalog = parse_action_catalog(sources.file("env/k8s_actions.py").read_text(encoding="utf-8"))
+    reward_source = sources.file("env/reward.py").read_text(encoding="utf-8")
+    span_match = re.search(r"^LATENCY_LOG2_SPAN\s*=\s*([0-9.]+)", reward_source, flags=re.MULTILINE)
+    if not span_match:
+        raise ExportError("env/reward.py: LATENCY_LOG2_SPAN not found")
     hypotheses = parse_hypotheses(sources.file("docs/PREREGISTRATION.md").read_text(encoding="utf-8"))
     versions = parse_versions(sources.file("config/cluster.env").read_text(encoding="utf-8"))
     statistics_constants = parse_stats_constants(sources.file("eval/stats.py").read_text(encoding="utf-8"))
@@ -263,7 +267,7 @@ def build_config(sources: SourceLog) -> dict[str, Any]:
             "f4_multiplier": episode["f4_multiplier"],
         },
         "replicas": contract["replicas"],
-        "reward": contract["reward"],
+        "reward": {**contract["reward"], "latency_log2_span": float(span_match.group(1))},
         "rl": contract["rl"],
         "per": contract["per"],
         "runbook": contract["runbook"],

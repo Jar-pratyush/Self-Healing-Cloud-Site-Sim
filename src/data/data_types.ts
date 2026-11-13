@@ -35,7 +35,7 @@ export type SiteConfig = {
     f4_multiplier: number[];
   };
   replicas: { base: Record<string, number>; max: Record<string, number> };
-  reward: { action_cost: Record<string, number>; w_replica: number; replica_denominator: number };
+  reward: { action_cost: Record<string, number>; w_replica: number; replica_denominator: number; latency_log2_span: number };
   rl: Record<string, number | number[]>;
   per: Record<string, number>;
   runbook: Record<string, number>;
