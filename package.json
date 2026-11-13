@@ -9,7 +9,8 @@
     "preview": "vite preview",
     "lint": "eslint .",
     "make_icons": "node scripts/make_icons.mjs",
-    "export_data": "python3 scripts/export_site_data.py"
+    "export_data": "python3 scripts/export_site_data.py",
+    "test_export": "python3 -m unittest discover -s scripts"
   },
   "dependencies": {
     "@fontsource-variable/fraunces": "^5.3.0",
