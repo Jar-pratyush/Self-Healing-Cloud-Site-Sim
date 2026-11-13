@@ -1,3 +1,4 @@
+import type { Ref } from "react";
 import { training_run_meta } from "../../content/policy_meta";
 import type { TrainingInternals } from "../../data/data_types";
 import { useElementWidth } from "../../hooks/use_element_width";
@@ -50,7 +51,14 @@ function format_tick(value: number, log_scale: boolean): string {
   return Number.isInteger(value) ? String(value) : value.toFixed(1);
 }
 
-function SmallChart({ spec, internals, width }: { spec: PanelSpec; internals: Record<string, TrainingInternals>; width: number }) {
+type SmallChartProps = {
+  spec: PanelSpec;
+  internals: Record<string, TrainingInternals>;
+  width: number;
+  measure_ref?: Ref<HTMLDivElement>;
+};
+
+function SmallChart({ spec, internals, width, measure_ref }: SmallChartProps) {
   const run_names = Object.keys(training_run_meta).filter((run_name) => internals[run_name]);
   const points_of = (run_name: string) => {
     const run = internals[run_name];
@@ -81,28 +89,30 @@ function SmallChart({ spec, internals, width }: { spec: PanelSpec; internals: Re
         <span className="internals_title">{spec.title}</span>
         <span className="internals_note">{spec.note}</span>
       </figcaption>
-      <svg width={width} height={chart_height} role="img" aria-label={`${spec.title} per training episode for each run`}>
-        {ticks.map((value) => (
-          <g key={value}>
-            <line x1={margin.left} x2={margin.left + plot_width} y1={y_of(value)} y2={y_of(value)} className="grid_line" />
-            <text x={margin.left - 6} y={y_of(value) + 4} className="axis_label" textAnchor="end">
-              {format_tick(value, spec.log_scale)}
+      <div ref={measure_ref}>
+        <svg width={width} height={chart_height} role="img" aria-label={`${spec.title} per training episode for each run`}>
+          {ticks.map((value) => (
+            <g key={value}>
+              <line x1={margin.left} x2={margin.left + plot_width} y1={y_of(value)} y2={y_of(value)} className="grid_line" />
+              <text x={margin.left - 6} y={y_of(value) + 4} className="axis_label" textAnchor="end">
+                {format_tick(value, spec.log_scale)}
+              </text>
+            </g>
+          ))}
+          {[1, 100, 200].filter((episode) => episode <= max_episode).map((episode) => (
+            <text key={episode} x={x_of(episode)} y={chart_height - 6} className="axis_label" textAnchor="middle">
+              {episode}
             </text>
-          </g>
-        ))}
-        {[1, 100, 200].filter((episode) => episode <= max_episode).map((episode) => (
-          <text key={episode} x={x_of(episode)} y={chart_height - 6} className="axis_label" textAnchor="middle">
-            {episode}
-          </text>
-        ))}
-        {run_names.map((run_name) => {
-          const meta = training_run_meta[run_name];
-          const path = points_of(run_name)
-            .map((point, point_index) => `${point_index === 0 ? "M" : "L"}${x_of(point.episode).toFixed(1)},${y_of(point.value).toFixed(1)}`)
-            .join("");
-          return <path key={run_name} d={path} fill="none" stroke={meta?.color_var} strokeWidth={1.8} strokeDasharray={meta?.dash} />;
-        })}
-      </svg>
+          ))}
+          {run_names.map((run_name) => {
+            const meta = training_run_meta[run_name];
+            const path = points_of(run_name)
+              .map((point, point_index) => `${point_index === 0 ? "M" : "L"}${x_of(point.episode).toFixed(1)},${y_of(point.value).toFixed(1)}`)
+              .join("");
+            return <path key={run_name} d={path} fill="none" stroke={meta?.color_var} strokeWidth={1.8} strokeDasharray={meta?.dash} />;
+          })}
+        </svg>
+      </div>
     </figure>
   );
 }
@@ -116,9 +126,7 @@ export function InternalsCharts({ internals }: InternalsChartsProps) {
     <div className="internals_charts">
       <div className="internals_grid">
         {panel_specs.map((spec, spec_index) => (
-          <div key={spec.key} ref={spec_index === 0 ? element_ref : undefined}>
-            <SmallChart spec={spec} internals={internals} width={width} />
-          </div>
+          <SmallChart key={spec.key} spec={spec} internals={internals} width={width} measure_ref={spec_index === 0 ? element_ref : undefined} />
         ))}
       </div>
       <ul className="chart_legend">

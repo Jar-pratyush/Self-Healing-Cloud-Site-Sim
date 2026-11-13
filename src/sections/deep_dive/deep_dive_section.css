@@ -549,7 +549,7 @@
   color: var(--color_text_faint);
 }
 
-.internals_grid > div {
+.internals_panel {
   min-width: 0;
 }
 
