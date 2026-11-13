@@ -63,12 +63,13 @@ export function SiteHeader() {
   return (
     <header className="site_header" ref={header_ref}>
       <div className="page_width site_header_row">
-        <a className="brand_link" href="#top" aria-label="Self-Healing Cloud, back to top">
+        <a className="brand_link" href="#top">
           <BrandMark size={30} />
           <span className="brand_text">
             <span className="brand_title">Self-Healing Cloud</span>
             <span className="brand_subtitle">RL on a live Kubernetes cluster</span>
           </span>
+          <span className="visually_hidden">, back to top</span>
         </a>
 
         <nav className="section_nav" aria-label="Sections">

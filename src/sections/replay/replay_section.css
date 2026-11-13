@@ -667,7 +667,9 @@
 }
 
 .mask_chip.is_blocked {
-  opacity: 0.4;
+  color: var(--color_text_faint);
+  border-style: dashed;
+  background: transparent;
   text-decoration: line-through;
 }
 
