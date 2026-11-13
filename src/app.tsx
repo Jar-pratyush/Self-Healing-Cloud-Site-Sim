@@ -1,4 +1,5 @@
 import { SiteHeader } from "./components/site_header";
+import { useHashLanding } from "./hooks/use_hash_landing";
 import { ViewModeProvider } from "./state/view_mode_provider";
 import { CreditsSection } from "./sections/credits_section";
 import { DeepDiveSection } from "./sections/deep_dive/deep_dive_section";
@@ -9,6 +10,7 @@ import { ReplaySection } from "./sections/replay/replay_section";
 import { ResultsSection } from "./sections/results/results_section";
 
 export function App() {
+  useHashLanding();
   return (
     <ViewModeProvider>
       <a className="skip_link" href="#problem">
