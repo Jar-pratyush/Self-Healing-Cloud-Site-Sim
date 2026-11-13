@@ -108,7 +108,7 @@ export function LanePanel({ lane, role_label, range, playhead, config, fault_tar
                   {service_name === fault_target ? <span className="target_tag">fault target</span> : null}
                 </th>
                 <td>
-                  <span className="pod_dots" aria-label={`${available_replicas} of ${spec_replicas} pods ready`}>
+                  <span className="pod_dots" role="img" aria-label={`${available_replicas} of ${spec_replicas} pods ready`}>
                     {Array.from({ length: Math.max(max_replicas, spec_replicas, 1) }, (_, slot_index) => (
                       <span
                         key={slot_index}
