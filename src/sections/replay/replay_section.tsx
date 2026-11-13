@@ -6,6 +6,7 @@ import { policy_color, policy_label } from "../../content/policy_meta";
 import type { EpisodeEntry, EpisodeIndex, SiteConfig } from "../../data/data_types";
 import { useSiteData } from "../../data/use_site_data";
 import { useReducedMotion } from "../../hooks/use_reduced_motion";
+import { useOpenReplayListener } from "../../state/replay_bus";
 import { LanePanel } from "./lane_panel";
 import { ObservationStrip } from "./observation_strip";
 import { build_beats, pick_examples, relative_range } from "./replay_model";
@@ -36,6 +37,7 @@ export function ReplaySection() {
   const { data: index } = useSiteData<EpisodeIndex>("episodes/index.json");
   const [chosen_entry, set_chosen_entry] = useState<number | null>(null);
   const [baseline_policy, set_baseline_policy] = useState("k8s_default");
+  useOpenReplayListener(set_chosen_entry);
 
   const entry_index = chosen_entry ?? index?.featured_entry ?? null;
   const { data: entry } = useSiteData<EpisodeEntry>(entry_index === null ? null : entry_file(entry_index));
