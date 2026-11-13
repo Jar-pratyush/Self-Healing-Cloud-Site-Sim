@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { training_run_meta } from "../../content/policy_meta";
 import type { TrainingRun } from "../../data/data_types";
 import { useElementWidth } from "../../hooks/use_element_width";
 
@@ -7,14 +8,6 @@ type TrainingChartProps = {
 };
 
 type MetricKey = "return" | "recovered";
-
-// Both warm-start seeds are the agent, so they share its colour and differ
-// by line style; the cold start uses the cold-agent colour.
-const training_run_meta: Record<string, { label: string; color_var: string; dash: string | undefined }> = {
-  sac_per_s0: { label: "Warm start, seed 0", color_var: "var(--color_agent)", dash: undefined },
-  sac_per_s1: { label: "Warm start, seed 1", color_var: "var(--color_agent)", dash: "2 4" },
-  sac_per_cold_s0: { label: "Cold start", color_var: "var(--color_agent_cold)", dash: "7 5" },
-};
 
 const rolling_window = 20;
 const chart_height = 300;

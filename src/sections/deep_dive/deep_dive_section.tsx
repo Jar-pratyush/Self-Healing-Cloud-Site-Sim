@@ -1,10 +1,11 @@
 import type { ReactNode } from "react";
 import { DeepPanel } from "../../components/deep_panel";
 import { SectionFrame } from "../../components/section_frame";
-import type { ResultsData, SafetyTotals, SiteConfig, TestRow, TrainingRun } from "../../data/data_types";
+import type { ResultsData, SafetyTotals, SiteConfig, TestRow, TrainingInternals, TrainingRun } from "../../data/data_types";
 import { useSiteData } from "../../data/use_site_data";
 import { ActionCatalogTable, EpisodeTable, ObservationTable } from "./decision_tables";
 import { HypothesisTests } from "./hypothesis_tests";
+import { InternalsCharts } from "./internals_charts";
 import { RewardExplorer } from "./reward_explorer";
 import { max_surplus_replicas } from "./reward_model";
 import { HyperparameterTables, RunbookRules, TestbedTable } from "./settings_tables";
@@ -33,11 +34,22 @@ function MethodBlock({ block_number, title, summary, children }: MethodBlockProp
   );
 }
 
+function summarise_entropy(internals: Record<string, TrainingInternals> | null) {
+  const warm_values = ["sac_per_s0", "sac_per_s1"].flatMap((run_name) => internals?.[run_name]?.entropy ?? []).filter((value): value is number => value !== null);
+  const cold_first = internals?.sac_per_cold_s0?.entropy.find((value): value is number => value !== null);
+  if (!warm_values.length || cold_first === undefined) {
+    return null;
+  }
+  return { warm_max: Math.max(...warm_values), cold_first };
+}
+
 export function DeepDiveSection() {
   const { data: config } = useSiteData<SiteConfig>("config.json");
   const { data: training } = useSiteData<Record<string, TrainingRun>>("training.json");
   const { data: tests } = useSiteData<TestRow[]>("tests.json");
   const { data: results } = useSiteData<ResultsData>("results.json");
+  const { data: internals } = useSiteData<Record<string, TrainingInternals>>("training_internals.json");
+  const entropy_summary = summarise_entropy(internals);
   const { data: safety } = useSiteData<Record<string, Record<string, SafetyTotals>>>("safety.json");
 
   return (
@@ -165,9 +177,9 @@ export function DeepDiveSection() {
             title="The evaluation plan"
             summary={
               <p>
-                The hypotheses, the tests and the pass marks were written down and dated before any training run,
-                then only amended with a stated reason and before the data they affect existed. Where a test came
-                out against the agent, it is reported as it came out.
+                The hypotheses, the tests and the pass marks were written down and dated before any training run.
+                Every later change was logged as a dated amendment with its reason. Where a test came out against
+                the agent, it is reported as it came out.
               </p>
             }
           >
@@ -198,6 +210,27 @@ export function DeepDiveSection() {
               {tests && results && safety && training ? (
                 <HypothesisTests config={config} tests={tests} results={results} safety={safety} training={training} />
               ) : null}
+            </DeepPanel>
+          </MethodBlock>
+
+          <MethodBlock
+            block_number="5.6"
+            title="Inside the learner"
+            summary={
+              <p>
+                What the networks were doing while the agent trained: how wrong the critics were, how much value
+                they expected, and how decided the policy was. These are diagnostics, not results.
+              </p>
+            }
+          >
+            <DeepPanel title="Training diagnostics per episode">
+              {internals ? <InternalsCharts internals={internals} /> : null}
+              <p className="chart_note">
+                Each point is the mean over that episode's gradient updates.
+                {entropy_summary
+                  ? ` With α held at ${config.rl.alpha_init}, the warm-started policy never exceeds ${entropy_summary.warm_max.toFixed(2)} nats of entropy, against ${Math.log(config.actions.length).toFixed(2)} for a uniform choice over all ${config.actions.length} actions: it refines the runbook's habits rather than exploring. The cold start begins at ${entropy_summary.cold_first.toFixed(2)} nats and collapses too, while its critics settle on far lower values.`
+                  : null}
+              </p>
             </DeepPanel>
           </MethodBlock>
         </div>
