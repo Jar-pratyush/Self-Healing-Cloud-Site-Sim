@@ -288,7 +288,140 @@
   color: var(--color_text);
 }
 
+/* Training phases. */
+.phase_track {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 8px 0 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: phase_counter;
+}
+
+.phase_card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 14px 16px;
+  border: 1px solid var(--color_line);
+  border-top: 3px solid var(--phase_color);
+  border-radius: var(--radius_panel);
+  background: var(--color_panel);
+  font-size: 13.5px;
+}
+
+.phase_card + .phase_card::before {
+  content: "";
+  position: absolute;
+  top: 22px;
+  left: -12px;
+  width: 12px;
+  border-top: 1px dashed var(--color_line);
+}
+
+.phase_card h5 {
+  margin: 0;
+  font-family: var(--font_body);
+  font-size: 15px;
+  font-weight: 600;
+  letter-spacing: 0;
+  color: var(--color_text);
+}
+
+.phase_card p {
+  margin: 0;
+}
+
+.phase_step {
+  font-size: 10.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--phase_color);
+}
+
+.phase_ref {
+  margin-top: auto;
+  font-size: 11px;
+  color: var(--color_text_faint);
+}
+
+.phase_card.is_data {
+  --phase_color: var(--color_runbook);
+}
+
+.phase_card.is_offline,
+.phase_card.is_online {
+  --phase_color: var(--color_agent);
+}
+
+.phase_card.is_cold {
+  --phase_color: var(--color_agent_cold);
+}
+
+/* Settings. */
+.setting_grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 12px 28px;
+}
+
+.setting_table_title {
+  margin: 0 0 4px;
+  font-family: var(--font_mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color_text_faint);
+}
+
+.setting_key {
+  display: block;
+  margin-top: 2px;
+  font-size: 11px !important;
+  color: var(--color_text_faint);
+}
+
+.rule_list {
+  display: grid;
+  gap: 8px;
+  margin: 10px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 14px;
+}
+
+.rule_list li {
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr);
+  gap: 10px;
+  padding: 8px 12px;
+  border: 1px solid var(--color_line_soft);
+  border-radius: 8px;
+  background: var(--color_panel);
+}
+
+.rule_id {
+  font-size: 12.5px;
+  color: var(--color_runbook);
+}
+
+@media (max-width: 1080px) {
+  .phase_track {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .phase_card + .phase_card::before {
+    display: none;
+  }
+}
+
 @media (max-width: 960px) {
+  .setting_grid {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .observation_groups {
     grid-template-columns: 1fr;
   }
@@ -297,9 +430,18 @@
     grid-template-columns: 1fr;
   }
 
+  .phase_track {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
   .reward_output {
     padding: 16px 0 0;
     border-left: 0;
     border-top: 1px solid var(--color_line);
   }
+}
+
+.setting_table .data_table td {
+  text-align: right;
+  white-space: nowrap;
 }

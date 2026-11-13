@@ -1,11 +1,13 @@
 import type { ReactNode } from "react";
 import { DeepPanel } from "../../components/deep_panel";
 import { SectionFrame } from "../../components/section_frame";
-import type { SiteConfig } from "../../data/data_types";
+import type { SiteConfig, TrainingRun } from "../../data/data_types";
 import { useSiteData } from "../../data/use_site_data";
 import { ActionCatalogTable, EpisodeTable, ObservationTable } from "./decision_tables";
 import { RewardExplorer } from "./reward_explorer";
 import { max_surplus_replicas } from "./reward_model";
+import { HyperparameterTables, RunbookRules, TestbedTable } from "./settings_tables";
+import { TrainingPhases } from "./training_phases";
 import "./deep_dive_section.css";
 
 type MethodBlockProps = {
@@ -32,6 +34,7 @@ function MethodBlock({ block_number, title, summary, children }: MethodBlockProp
 
 export function DeepDiveSection() {
   const { data: config } = useSiteData<SiteConfig>("config.json");
+  const { data: training } = useSiteData<Record<string, TrainingRun>>("training.json");
 
   return (
     <SectionFrame
@@ -109,6 +112,47 @@ export function DeepDiveSection() {
                 .
               </p>
               <RewardExplorer config={config} />
+            </DeepPanel>
+          </MethodBlock>
+
+          <MethodBlock
+            block_number="5.3"
+            title="The learning algorithm"
+            summary={
+              <p>
+                The agent is a soft actor-critic adapted to a short list of discrete actions. Before it touched the
+                cluster it studied recordings of the runbook at work, so it started out cautious instead of random,
+                then kept learning on the live cluster.
+              </p>
+            }
+          >
+            <DeepPanel title="Masked discrete SAC with prioritised replay">
+              {training ? <TrainingPhases config={config} training={training} /> : null}
+            </DeepPanel>
+          </MethodBlock>
+
+          <MethodBlock
+            block_number="5.4"
+            title="Settings and baselines"
+            summary={
+              <p>
+                Every setting was fixed in a contract file before training and never tuned on evaluation results.
+                The runbook the agent is compared with is a plain list of if-then rules, written the way an on-call
+                engineer would write them.
+              </p>
+            }
+          >
+            <DeepPanel title="Hyperparameters, runbook rules and the testbed">
+              <h4 className="method_subtitle">Hyperparameters</h4>
+              <HyperparameterTables config={config} />
+              <h4 className="method_subtitle">Scripted runbook, checked in order every tick</h4>
+              <p>
+                It reads the same observation as the agent and never sees which fault was injected. "Unhealthy"
+                means the SLA was broken on the tick.
+              </p>
+              <RunbookRules config={config} />
+              <h4 className="method_subtitle">Testbed</h4>
+              <TestbedTable config={config} />
             </DeepPanel>
           </MethodBlock>
         </div>
