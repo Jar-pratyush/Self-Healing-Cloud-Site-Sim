@@ -1,0 +1,134 @@
+.control_loop {
+  padding: 22px;
+  border: 1px solid var(--color_line);
+  border-radius: var(--radius_panel);
+  background: var(--color_panel);
+  box-shadow: var(--shadow_panel);
+}
+
+.loop_clock {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 18px;
+}
+
+.loop_clock_label {
+  font-family: var(--font_mono);
+  font-size: 11px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color_text_faint);
+}
+
+.loop_clock_track {
+  position: relative;
+  flex: 1;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--color_line_soft);
+  overflow: hidden;
+}
+
+.loop_clock_fill {
+  position: absolute;
+  inset: 0;
+  transform-origin: left;
+  background: linear-gradient(90deg, var(--color_agent), var(--color_runbook));
+  animation: loop_clock_run 8s linear infinite;
+}
+
+.loop_steps {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  counter-reset: loop_step;
+}
+
+.loop_step {
+  position: relative;
+  padding: 16px;
+  border: 1px solid var(--color_line);
+  border-radius: 10px;
+  background: var(--color_bg_raised);
+  animation: loop_step_glow 8s ease-in-out infinite;
+}
+
+.loop_step:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  top: 26px;
+  right: -11px;
+  width: 10px;
+  height: 10px;
+  border-top: 1.5px solid var(--color_text_faint);
+  border-right: 1.5px solid var(--color_text_faint);
+  transform: rotate(45deg);
+  z-index: 1;
+}
+
+.loop_step_index {
+  font-family: var(--font_mono);
+  font-size: 11px;
+  color: var(--color_text_faint);
+}
+
+.loop_step_title {
+  margin: 4px 0 8px;
+  font-size: 22px;
+}
+
+.loop_step_text {
+  margin: 0;
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--color_text_muted);
+}
+
+@keyframes loop_clock_run {
+  from { transform: scaleX(0); }
+  to { transform: scaleX(1); }
+}
+
+@keyframes loop_step_glow {
+  0%,
+  24% {
+    border-color: var(--color_agent);
+    box-shadow: 0 0 0 1px var(--color_agent), 0 10px 30px -18px var(--color_agent);
+  }
+  30%,
+  100% {
+    border-color: var(--color_line);
+    box-shadow: none;
+  }
+}
+
+@media (max-width: 860px) {
+  .loop_steps {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .loop_step::after {
+    display: none;
+  }
+}
+
+@media (max-width: 520px) {
+  .loop_steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loop_step,
+  .loop_clock_fill {
+    animation: none;
+  }
+
+  .loop_clock_fill {
+    transform: none;
+  }
+}

@@ -1,0 +1,14 @@
+.observation_groups {
+  display: grid;
+  gap: 16px;
+  margin-top: 8px;
+}
+
+.observation_group_title {
+  margin: 0 0 8px;
+  font-family: var(--font_mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color_text_faint);
+}

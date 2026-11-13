@@ -160,7 +160,11 @@
   }
 }
 
-@media (max-width: 370px) {
+@media (max-width: 440px) {
+  .site_header_row {
+    gap: 10px;
+  }
+
   .brand_text {
     display: none;
   }
