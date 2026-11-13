@@ -1,0 +1,98 @@
+/* Colour roles are fixed across the whole site: a policy keeps its colour in every chart. */
+/* Default palette is the night "control room"; the light "paper" palette follows below. */
+
+:root {
+  --color_bg: #0b1016;
+  --color_bg_raised: #101821;
+  --color_panel: #141e29;
+  --color_panel_strong: #1a2633;
+  --color_line: #243344;
+  --color_line_soft: #1a2633;
+  --color_grid: rgba(132, 170, 210, 0.055);
+  --color_text: #ece6da;
+  --color_text_muted: #a3adb8;
+  --color_text_faint: #6f7c89;
+
+  --color_agent: #2fbf8f;
+  --color_agent_soft: rgba(47, 191, 143, 0.14);
+  --color_agent_cold: #9fc9b6;
+  --color_runbook: #8b90f5;
+  --color_hpa: #e3a93e;
+  --color_k8s: #8e9aa7;
+  --color_fault: #f05a3c;
+  --color_fault_soft: rgba(240, 90, 60, 0.14);
+  --color_focus: #f2d36b;
+
+  --shadow_panel: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 18px 40px -24px rgba(0, 0, 0, 0.7);
+
+  --font_display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
+  --font_body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
+  --font_mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  --space_gutter: clamp(16px, 4vw, 40px);
+  --width_content: 1180px;
+  --width_prose: 68ch;
+  --radius_panel: 14px;
+  --radius_control: 999px;
+
+  --ease_settle: cubic-bezier(0.22, 1, 0.36, 1);
+  --duration_tick: 900ms;
+
+  color-scheme: dark;
+}
+
+@media (prefers-color-scheme: light) {
+  :root:not([data-theme="dark"]) {
+    --color_bg: #f4efe4;
+    --color_bg_raised: #f9f5ec;
+    --color_panel: #fffdf8;
+    --color_panel_strong: #f1eadc;
+    --color_line: #d8cfbd;
+    --color_line_soft: #e7dfcf;
+    --color_grid: rgba(54, 74, 104, 0.07);
+    --color_text: #18202a;
+    --color_text_muted: #4c5966;
+    --color_text_faint: #7b8691;
+
+    --color_agent: #0c8460;
+    --color_agent_soft: rgba(12, 132, 96, 0.12);
+    --color_agent_cold: #5f927c;
+    --color_runbook: #474cc4;
+    --color_hpa: #a8730c;
+    --color_k8s: #646f7b;
+    --color_fault: #cf3a1d;
+    --color_fault_soft: rgba(207, 58, 29, 0.1);
+    --color_focus: #9a6a00;
+
+    --shadow_panel: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 18px 40px -28px rgba(60, 48, 24, 0.35);
+
+    color-scheme: light;
+  }
+}
+
+:root[data-theme="light"] {
+  --color_bg: #f4efe4;
+  --color_bg_raised: #f9f5ec;
+  --color_panel: #fffdf8;
+  --color_panel_strong: #f1eadc;
+  --color_line: #d8cfbd;
+  --color_line_soft: #e7dfcf;
+  --color_grid: rgba(54, 74, 104, 0.07);
+  --color_text: #18202a;
+  --color_text_muted: #4c5966;
+  --color_text_faint: #7b8691;
+
+  --color_agent: #0c8460;
+  --color_agent_soft: rgba(12, 132, 96, 0.12);
+  --color_agent_cold: #5f927c;
+  --color_runbook: #474cc4;
+  --color_hpa: #a8730c;
+  --color_k8s: #646f7b;
+  --color_fault: #cf3a1d;
+  --color_fault_soft: rgba(207, 58, 29, 0.1);
+  --color_focus: #9a6a00;
+
+  --shadow_panel: 0 1px 0 rgba(255, 255, 255, 0.7) inset, 0 18px 40px -28px rgba(60, 48, 24, 0.35);
+
+  color-scheme: light;
+}

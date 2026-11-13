@@ -1,0 +1,92 @@
+.hero_section {
+  position: relative;
+  padding: clamp(64px, 12vw, 148px) 0 clamp(40px, 6vw, 72px);
+  overflow: hidden;
+}
+
+.hero_section::before {
+  content: "";
+  position: absolute;
+  inset: -20% -10% auto auto;
+  width: min(720px, 90vw);
+  aspect-ratio: 1;
+  background: radial-gradient(closest-side, var(--color_agent_soft), transparent 70%);
+  pointer-events: none;
+}
+
+.hero_eyebrow {
+  margin-bottom: 22px;
+}
+
+.hero_title {
+  font-size: clamp(44px, 9vw, 108px);
+  font-weight: 520;
+  line-height: 0.98;
+  letter-spacing: -0.025em;
+  max-width: 12ch;
+  font-variation-settings: "opsz" 144;
+}
+
+.hero_title em {
+  font-style: italic;
+  font-weight: 380;
+  color: var(--color_agent);
+}
+
+.hero_subtitle {
+  margin-top: 28px;
+  max-width: 58ch;
+  font-size: clamp(17px, 1.8vw, 21px);
+  color: var(--color_text_muted);
+}
+
+.hero_actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 34px;
+}
+
+.hero_button {
+  display: inline-flex;
+  align-items: center;
+  padding: 12px 20px;
+  border: 1px solid var(--color_line);
+  border-radius: var(--radius_control);
+  background: var(--color_bg_raised);
+  font-weight: 500;
+  font-size: 15.5px;
+  text-decoration: none;
+  transition: border-color 160ms ease, transform 200ms var(--ease_settle);
+}
+
+.hero_button:hover {
+  border-color: var(--color_text_faint);
+  transform: translateY(-1px);
+}
+
+.hero_button_primary {
+  background: var(--color_agent);
+  border-color: var(--color_agent);
+  color: var(--color_bg);
+}
+
+.hero_button_primary:hover {
+  border-color: var(--color_agent);
+}
+
+.hero_trace_band {
+  margin: clamp(36px, 6vw, 64px) 0 18px;
+  padding: 0 var(--space_gutter);
+}
+
+.hero_credit {
+  margin: 0;
+  font-family: var(--font_mono);
+  font-size: 13px;
+  color: var(--color_text_faint);
+}
+
+.hero_credit span {
+  color: var(--color_text);
+}

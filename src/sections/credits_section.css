@@ -1,0 +1,61 @@
+.credits_section {
+  border-top: 1px solid var(--color_line);
+  background: var(--color_bg_raised);
+  padding: clamp(64px, 9vw, 112px) 0 32px;
+}
+
+.credits_grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr);
+  gap: clamp(32px, 6vw, 80px);
+  align-items: start;
+}
+
+.credits_title {
+  font-size: clamp(26px, 3.6vw, 40px);
+  max-width: 22ch;
+}
+
+.credits_links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 18px;
+}
+
+.credits_links li {
+  display: grid;
+  gap: 2px;
+  padding-bottom: 16px;
+  border-bottom: 1px solid var(--color_line_soft);
+}
+
+.credits_links a {
+  font-weight: 500;
+  font-size: 17px;
+}
+
+.credits_links span {
+  font-size: 14.5px;
+  color: var(--color_text_muted);
+}
+
+.credits_base {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(48px, 7vw, 88px);
+  padding-top: 20px;
+  border-top: 1px solid var(--color_line_soft);
+  font-family: var(--font_mono);
+  font-size: 12px;
+  color: var(--color_text_faint);
+}
+
+@media (max-width: 760px) {
+  .credits_grid {
+    grid-template-columns: 1fr;
+  }
+}
