@@ -192,10 +192,36 @@ def parse_stats_constants(source_text: str) -> dict[str, float]:
     return constants
 
 
+def parse_hypotheses(markdown_text: str) -> list[dict[str, str]]:
+    # Rows of the hypothesis table in section 1 of docs/PREREGISTRATION.md,
+    # quoted exactly as they were registered before training.
+    hypotheses = []
+    for line in markdown_text.splitlines():
+        match = re.match(r"^\|\s*(H\d)\s*\|\s*(.+?)\s*\|\s*(.+?)\s*\|\s*$", line)
+        if match:
+            hypotheses.append({"id": match.group(1), "statement": match.group(2), "comparison": match.group(3)})
+    if [row["id"] for row in hypotheses] != ["H1", "H2", "H3", "H4", "H5"]:
+        raise ExportError("could not read hypotheses H1 to H5 from docs/PREREGISTRATION.md")
+    return hypotheses
+
+
+def parse_versions(env_text: str) -> dict[str, str]:
+    # Only the pinned *_VERSION entries are kept; addresses and paths in the
+    # same file are never exported.
+    versions = {}
+    for line in env_text.splitlines():
+        match = re.match(r"^\s*(?:export\s+)?([A-Z0-9_]+_VERSION)=(\S+)", line)
+        if match:
+            versions[match.group(1).lower()] = match.group(2).strip('"')
+    return versions
+
+
 def build_config(sources: SourceLog) -> dict[str, Any]:
     contract = yaml.safe_load(sources.file("config/contract.yaml").read_text(encoding="utf-8"))
     calibration = json.loads(sources.file("config/calibration.json").read_text(encoding="utf-8"))
     catalog = parse_action_catalog(sources.file("env/k8s_actions.py").read_text(encoding="utf-8"))
+    hypotheses = parse_hypotheses(sources.file("docs/PREREGISTRATION.md").read_text(encoding="utf-8"))
+    versions = parse_versions(sources.file("config/cluster.env").read_text(encoding="utf-8"))
     statistics_constants = parse_stats_constants(sources.file("eval/stats.py").read_text(encoding="utf-8"))
     edge_link = parse_env_file(sources.file("config/runs/edge_degraded.env").read_text(encoding="utf-8"))
 
@@ -245,6 +271,8 @@ def build_config(sources: SourceLog) -> dict[str, Any]:
         "actions": catalog,
         "observation_names": observation_names,
         "statistics": statistics_constants,
+        "hypotheses": hypotheses,
+        "versions": versions,
         "edge_link": {
             "delay": edge_link.get("NETEM_DELAY"),
             "jitter": edge_link.get("NETEM_JITTER"),

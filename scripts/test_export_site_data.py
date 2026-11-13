@@ -48,6 +48,19 @@ class StatsConstantsTests(unittest.TestCase):
             exporter.parse_stats_constants("ALPHA = 0.05\n")
 
 
+class PreregistrationTests(unittest.TestCase):
+    def test_hypothesis_rows_are_read(self):
+        rows = "\n".join(f"| H{number} | statement {number} | a vs b |" for number in range(1, 6))
+        text = "| ID | Hypothesis | Primary comparison |\n|---|---|---|\n" + rows
+        hypotheses = exporter.parse_hypotheses(text)
+        self.assertEqual(len(hypotheses), 5)
+        self.assertEqual(hypotheses[1]["statement"], "statement 2")
+
+    def test_versions_skip_addresses(self):
+        text = "export A_IP=10.0.0.5\nexport K3S_VERSION=v1.36.4+k3s1   # running\nexport OB_VERSION=v0.10.7\n"
+        self.assertEqual(exporter.parse_versions(text), {"k3s_version": "v1.36.4+k3s1", "ob_version": "v0.10.7"})
+
+
 class ActionCatalogTests(unittest.TestCase):
     source_text = """
 CATALOG: tuple[Action, ...] = (

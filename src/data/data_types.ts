@@ -44,6 +44,8 @@ export type SiteConfig = {
   observation_names: string[];
   statistics: { bootstrap_resamples: number; ci_level: number; non_inferiority_margin_s: number; alpha: number };
   edge_link: { delay: string | null; jitter: string | null; loss: string | null };
+  hypotheses: { id: string; statement: string; comparison: string }[];
+  versions: Record<string, string>;
 };
 
 export type SummaryRow = {
