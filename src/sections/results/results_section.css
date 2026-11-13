@@ -102,15 +102,15 @@
 .recovery_grid_head,
 .recovery_row {
   display: grid;
-  grid-template-columns: 170px repeat(5, max-content) 56px;
-  gap: 16px;
+  grid-template-columns: 170px repeat(5, 114px) 56px;
+  gap: 16px 22px;
   align-items: center;
 }
 
 .recovery_group_title {
   font-size: 12px;
+  line-height: 1.3;
   color: var(--color_text_muted);
-  white-space: nowrap;
 }
 
 .recovery_group_title .mono {
@@ -123,15 +123,28 @@
   color: var(--row_color);
 }
 
+.recovery_group_wrap {
+  display: grid;
+  gap: 4px;
+}
+
+.recovery_group_label {
+  display: none;
+  font-size: 10.5px;
+  color: var(--color_text_faint);
+}
+
+/* Ten episodes per fault as two rows of five. Squares sit 24 px apart, */
+/* centre to centre, so each one is a comfortable touch target. */
 .recovery_group {
   display: grid;
-  grid-template-columns: repeat(10, 14px);
-  gap: 3px;
+  grid-template-columns: repeat(5, 18px);
+  gap: 6px;
 }
 
 .recovery_cell {
-  width: 14px;
-  height: 14px;
+  width: 18px;
+  height: 18px;
   padding: 0;
   border: 1.5px solid color-mix(in srgb, var(--row_color) 55%, transparent);
   border-radius: 3px;
@@ -145,7 +158,7 @@ button.recovery_cell {
 }
 
 button.recovery_cell:hover {
-  transform: scale(1.35);
+  transform: scale(1.2);
 }
 
 .recovery_cell.is_recovered {
@@ -438,13 +451,17 @@ button.recovery_cell:hover {
   }
 }
 
-@media (max-width: 1180px) {
+@media (max-width: 1040px) {
   .recovery_grid_head {
     display: none;
   }
 
+  .recovery_group_label {
+    display: block;
+  }
+
   .recovery_row {
-    grid-template-columns: repeat(5, max-content);
+    grid-template-columns: repeat(5, 114px);
     gap: 8px 14px;
     padding-bottom: 12px;
     border-bottom: 1px solid var(--color_line_soft);
@@ -462,7 +479,8 @@ button.recovery_cell:hover {
 
 @media (max-width: 760px) {
   .recovery_row {
-    grid-template-columns: repeat(2, max-content);
+    grid-template-columns: repeat(2, 114px);
+    column-gap: 24px;
   }
 
   .recovery_policy {
@@ -479,5 +497,15 @@ button.recovery_cell:hover {
 
   .detection_label {
     grid-row: auto;
+  }
+}
+
+@media (max-width: 360px) {
+  .recovery_grid {
+    padding: 14px 12px;
+  }
+
+  .recovery_row {
+    column-gap: 16px;
   }
 }

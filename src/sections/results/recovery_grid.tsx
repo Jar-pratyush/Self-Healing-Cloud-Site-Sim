@@ -41,28 +41,33 @@ export function RecoveryGrid({ block, policies, can_open_replay }: RecoveryGridP
             {fault_codes.map((code) => {
               const group = rows.filter((row) => row.fault === code).sort((first, second) => first.index - second.index);
               return (
-                <span key={code} className="recovery_group" aria-label={`${fault_meta[code].name}`}>
-                  {group.map((row) => {
-                    const class_names = ["recovery_cell"];
-                    if (code === "NULL") {
-                      class_names.push(row.actions > 0 ? "is_false_alarm" : "is_quiet");
-                    } else if (row.recovered) {
-                      class_names.push("is_recovered");
-                    }
-                    const title = cell_title(row);
-                    return can_open_replay ? (
-                      <button
-                        key={row.index}
-                        type="button"
-                        className={class_names.join(" ")}
-                        title={`${title}. Open in the replay.`}
-                        aria-label={`${title}. Open in the replay.`}
-                        onClick={() => open_replay(row.index)}
-                      />
-                    ) : (
-                      <span key={row.index} className={class_names.join(" ")} title={title} />
-                    );
-                  })}
+                <span key={code} className="recovery_group_wrap">
+                  <span className="recovery_group_label mono" aria-hidden="true">
+                    {code === "NULL" ? "No fault" : code}
+                  </span>
+                  <span className="recovery_group" role="group" aria-label={fault_meta[code].name}>
+                    {group.map((row) => {
+                      const class_names = ["recovery_cell"];
+                      if (code === "NULL") {
+                        class_names.push(row.actions > 0 ? "is_false_alarm" : "is_quiet");
+                      } else if (row.recovered) {
+                        class_names.push("is_recovered");
+                      }
+                      const title = cell_title(row);
+                      return can_open_replay ? (
+                        <button
+                          key={row.index}
+                          type="button"
+                          className={class_names.join(" ")}
+                          title={`${title}. Open in the replay.`}
+                          aria-label={`${title}. Open in the replay.`}
+                          onClick={() => open_replay(row.index)}
+                        />
+                      ) : (
+                        <span key={row.index} className={class_names.join(" ")} title={title} />
+                      );
+                    })}
+                  </span>
                 </span>
               );
             })}
