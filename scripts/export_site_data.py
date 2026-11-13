@@ -169,10 +169,22 @@ def parse_action_catalog(source_text: str) -> list[dict[str, Any]]:
     return catalog
 
 
+def parse_env_file(text: str) -> dict[str, str]:
+    values = {}
+    for line in text.splitlines():
+        line = line.strip()
+        if not line or line.startswith("#") or "=" not in line:
+            continue
+        key, value = line.split("=", 1)
+        values[key.strip()] = value.split("#", 1)[0].strip().strip('"')
+    return values
+
+
 def build_config(sources: SourceLog) -> dict[str, Any]:
     contract = yaml.safe_load(sources.file("config/contract.yaml").read_text(encoding="utf-8"))
     calibration = json.loads(sources.file("config/calibration.json").read_text(encoding="utf-8"))
     catalog = parse_action_catalog(sources.file("env/k8s_actions.py").read_text(encoding="utf-8"))
+    edge_link = parse_env_file(sources.file("config/runs/edge_degraded.env").read_text(encoding="utf-8"))
 
     managed = list(contract["cluster"]["managed"])
     observation_names = list(global_feature_names)
@@ -219,6 +231,11 @@ def build_config(sources: SourceLog) -> dict[str, Any]:
         "locust": {"wait_s": contract["locust"]["wait_s"], "request_timeout_s": contract["locust"]["request_timeout_s"]},
         "actions": catalog,
         "observation_names": observation_names,
+        "edge_link": {
+            "delay": edge_link.get("NETEM_DELAY"),
+            "jitter": edge_link.get("NETEM_JITTER"),
+            "loss": edge_link.get("NETEM_LOSS"),
+        },
     }
 
 

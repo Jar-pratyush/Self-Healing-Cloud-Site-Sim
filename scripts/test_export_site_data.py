@@ -30,6 +30,12 @@ class ParseCellTests(unittest.TestCase):
         self.assertEqual(exporter.parse_cell("F1-F4"), "F1-F4")
 
 
+class EnvFileTests(unittest.TestCase):
+    def test_comments_and_blank_lines_are_skipped(self):
+        text = "# degraded link\nNETEM_DELAY=150ms  # one way\n\nNETEM_LOSS=1%\n"
+        self.assertEqual(exporter.parse_env_file(text), {"NETEM_DELAY": "150ms", "NETEM_LOSS": "1%"})
+
+
 class ActionCatalogTests(unittest.TestCase):
     source_text = """
 CATALOG: tuple[Action, ...] = (

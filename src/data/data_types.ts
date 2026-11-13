@@ -42,6 +42,7 @@ export type SiteConfig = {
   locust: { wait_s: number[]; request_timeout_s: number };
   actions: ActionEntry[];
   observation_names: string[];
+  edge_link: { delay: string | null; jitter: string | null; loss: string | null };
 };
 
 export type SummaryRow = {
