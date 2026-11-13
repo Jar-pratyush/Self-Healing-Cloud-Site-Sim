@@ -63,7 +63,7 @@ export function HowItWorksSection() {
             <p>
               The policy then picks an action, which is dispatched asynchronously. A global lock keeps at most one
               action in flight until its rollout completes, and the executor re-checks replica bounds before every
-              call. Load is {config.calibration.users} Locust users (about {config.calibration.requests_per_s}{" "}
+              call. Load is {config.calibration.users} Locust users (about {Math.round(config.calibration.requests_per_s)}{" "}
               requests/s), with one TCP connection per request.
             </p>
           </DeepPanel>
