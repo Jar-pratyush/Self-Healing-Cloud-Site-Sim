@@ -13,6 +13,7 @@ import { ReplicationTable } from "./replication_table";
 import { SurvivalChart } from "./survival_chart";
 import { TrainingChart } from "./training_chart";
 import "./results_section.css";
+import { TableScroll } from "../../components/table_scroll";
 
 const main_policies = ["sac_per", "runbook", "k8s_hpa", "k8s_default", "sac_per_cold"];
 const fault_order = ["F1", "F2", "F3", "F4"] as const;
@@ -133,7 +134,7 @@ export function ResultsSection() {
             ) : null}
 
             <DeepPanel title="Scorecard and the pre-registered comparison">
-              <div className="table_scroll">
+              <TableScroll label="Scorecard">
                 <table className="data_table">
                   <thead>
                     <tr>
@@ -170,7 +171,7 @@ export function ResultsSection() {
                     })}
                   </tbody>
                 </table>
-              </div>
+              </TableScroll>
               {h2_pooled && h2_pooled.ci_low !== null && h2_pooled.ci_high !== null ? (
                 <p className="table_note">
                   Agent against runbook, pooled MTTR: {Math.round(config.statistics.ci_level * 100)} % bootstrap CI of the

@@ -104,7 +104,7 @@ export function DeepDiveSection() {
             }
           >
             <DeepPanel title="Reward function and a live calculator">
-              <div className="formula_block mono" aria-label="Reward function">
+              <div className="formula_block mono" role="region" aria-label="Reward function" tabIndex={0}>
                 <p>ℓ = clip(log₂(Lat / {config.sla.latency_ms} ms) / {config.reward.latency_log2_span}, 0, 1)</p>
                 <p>
                   e = clip((F − {config.sla.error_ratio}) / ({config.sla.error_ratio_max} − {config.sla.error_ratio}), 0, 1)

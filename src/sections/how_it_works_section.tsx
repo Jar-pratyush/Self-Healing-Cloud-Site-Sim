@@ -5,6 +5,7 @@ import { useSiteData } from "../data/use_site_data";
 import { ArchitectureDiagram } from "./architecture_diagram";
 import { ControlLoop } from "./control_loop";
 import "./how_it_works_section.css";
+import { TableScroll } from "../components/table_scroll";
 
 export function HowItWorksSection() {
   const { data: config } = useSiteData<SiteConfig>("config.json");
@@ -130,7 +131,7 @@ function ObservationTable({ config }: { config: SiteConfig }) {
 
 function ActionTable({ config }: { config: SiteConfig }) {
   return (
-    <div className="table_scroll">
+    <TableScroll label={`The ${config.actions.length} actions and their guards`}>
       <table className="data_table">
         <thead>
           <tr>
@@ -157,6 +158,6 @@ function ActionTable({ config }: { config: SiteConfig }) {
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }

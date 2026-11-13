@@ -2,6 +2,7 @@ import { fault_meta, repair_action } from "../../content/fault_meta";
 import { format_service } from "../../content/format_values";
 import { policy_color, policy_label } from "../../content/policy_meta";
 import type { ActionRow, FaultCode } from "../../data/data_types";
+import { TableScroll } from "../../components/table_scroll";
 
 type ActionsTableProps = {
   rows: ActionRow[];
@@ -43,7 +44,7 @@ export function ActionsTable({ rows, policies }: ActionsTableProps) {
   groups.sort((first, second) => first.fault.localeCompare(second.fault) || String(first.target).localeCompare(String(second.target)));
 
   return (
-    <div className="table_scroll">
+    <TableScroll label="Actions each policy took per fault">
       <table className="data_table actions_table">
         <thead>
           <tr>
@@ -92,6 +93,6 @@ export function ActionsTable({ rows, policies }: ActionsTableProps) {
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }

@@ -1,4 +1,5 @@
 import type { ActionEntry, SiteConfig } from "../../data/data_types";
+import { TableScroll } from "../../components/table_scroll";
 
 type ConfigProps = {
   config: SiteConfig;
@@ -86,7 +87,7 @@ function mask_rule(action: ActionEntry, config: SiteConfig): string {
 
 export function ActionCatalogTable({ config }: ConfigProps) {
   return (
-    <div className="table_scroll">
+    <TableScroll label="Action catalogue">
       <table className="data_table action_catalog">
         <thead>
           <tr>
@@ -109,7 +110,7 @@ export function ActionCatalogTable({ config }: ConfigProps) {
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }
 
@@ -130,7 +131,7 @@ export function EpisodeTable({ config }: ConfigProps) {
     ["Recovered", `${config.sla.recovery_ticks} healthy ticks in a row and the cause undone`],
   ];
   return (
-    <div className="table_scroll">
+    <TableScroll label="Episode settings">
       <table className="data_table">
         <tbody>
           {rows.map(([label, value]) => (
@@ -141,6 +142,6 @@ export function EpisodeTable({ config }: ConfigProps) {
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }

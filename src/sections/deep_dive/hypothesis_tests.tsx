@@ -2,6 +2,7 @@ import { useId, useState } from "react";
 import { format_p_value } from "../../content/format_values";
 import { policy_label } from "../../content/policy_meta";
 import type { ResultsData, SafetyTotals, SiteConfig, TestRow, TrainingRun } from "../../data/data_types";
+import { TableScroll } from "../../components/table_scroll";
 
 type HypothesisTestsProps = {
   config: SiteConfig;
@@ -221,7 +222,7 @@ const group_titles: Record<string, string> = {
 function TestTable({ rows, margin_s }: { rows: TestRow[]; margin_s: number }) {
   const show_margin = rows.some(uses_margin);
   return (
-    <div className="table_scroll">
+    <TableScroll label="Test results">
       <table className="data_table test_table">
         <thead>
           <tr>
@@ -263,7 +264,7 @@ function TestTable({ rows, margin_s }: { rows: TestRow[]; margin_s: number }) {
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }
 

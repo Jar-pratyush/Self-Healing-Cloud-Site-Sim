@@ -1,4 +1,5 @@
 import type { SiteConfig } from "../../data/data_types";
+import { TableScroll } from "../../components/table_scroll";
 
 type ConfigProps = {
   config: SiteConfig;
@@ -141,7 +142,7 @@ export function TestbedTable({ config }: ConfigProps) {
     ["Replicas (baseline / max)", Object.keys(config.replicas.base).map((service_name) => `${service_name} ${config.replicas.base[service_name]}/${config.replicas.max[service_name]}`).join(", ")],
   ];
   return (
-    <div className="table_scroll">
+    <TableScroll label="Testbed">
       <table className="data_table">
         <tbody>
           {rows.map(([label, value]) => (
@@ -152,6 +153,6 @@ export function TestbedTable({ config }: ConfigProps) {
           ))}
         </tbody>
       </table>
-    </div>
+    </TableScroll>
   );
 }

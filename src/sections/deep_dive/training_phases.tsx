@@ -62,7 +62,7 @@ export function TrainingPhases({ config, training }: TrainingPhasesProps) {
       </ol>
 
       <h4 className="method_subtitle">One online update</h4>
-      <div className="formula_block mono" aria-label="Update rules">
+      <div className="formula_block mono" role="region" aria-label="Update rules" tabIndex={0}>
         <p>π(a|s) = softmax over valid actions only; masked actions get probability 0</p>
         <p>
           y = Σ<sub>i&lt;{n_step}</sub> γ<sup>i</sup>r<sub>t+i</sub> + γ<sup>{n_step}</sup>(1 − done) · Σ<sub>a valid</sub> π(a|s′)[min Q̄(s′, a) − α log π(a|s′)]
