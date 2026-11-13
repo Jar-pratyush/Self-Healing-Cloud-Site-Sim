@@ -25,9 +25,9 @@
 
   --shadow_panel: 0 1px 0 rgba(255, 255, 255, 0.03) inset, 0 18px 40px -24px rgba(0, 0, 0, 0.7);
 
-  --font_display: "Fraunces Variable", "Iowan Old Style", Georgia, serif;
-  --font_body: "IBM Plex Sans", "Segoe UI", system-ui, sans-serif;
-  --font_mono: "IBM Plex Mono", ui-monospace, "SFMono-Regular", Menlo, monospace;
+  --font_display: "Bricolage Grotesque Variable", "Segoe UI", system-ui, sans-serif;
+  --font_body: "Instrument Sans Variable", "Segoe UI", system-ui, sans-serif;
+  --font_mono: "JetBrains Mono Variable", ui-monospace, "SFMono-Regular", Menlo, monospace;
 
   --space_gutter: clamp(16px, 4vw, 40px);
   --width_content: 1180px;

@@ -33,11 +33,10 @@ h2,
 h3,
 h4 {
   font-family: var(--font_display);
-  font-weight: 560;
-  line-height: 1.12;
-  letter-spacing: -0.012em;
+  font-weight: 650;
+  line-height: 1.08;
+  letter-spacing: -0.022em;
   margin: 0;
-  font-variation-settings: "opsz" 96;
 }
 
 p {
