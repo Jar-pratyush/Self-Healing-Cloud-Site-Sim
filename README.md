@@ -2,7 +2,7 @@
 
 The public website for our B.Tech capstone on reinforcement learning for fault repair on a live Kubernetes cluster. It explains the project in plain language, replays real recorded incidents, and shows the evaluation results.
 
-The research code and raw data live in a separate repository: [self-healing-cloud-infrastructure](https://github.com/zaidbinshams/self-healing-cloud-infrastructure). This site only displays what that repository recorded.
+The research code and raw data live in a separate repository; source code is available on demand. This site only displays what that repository recorded.
 
 ## Running it
 

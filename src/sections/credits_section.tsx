@@ -3,8 +3,6 @@ import type { Provenance } from "../data/data_types";
 import { useSiteData } from "../data/use_site_data";
 import "./credits_section.css";
 
-const capstone_repo_url = "https://github.com/zaidbinshams/self-healing-cloud-infrastructure";
-
 function format_day(timestamp: string | null): string {
   if (!timestamp) {
     return "";
@@ -24,7 +22,7 @@ function ProvenanceLine() {
       Data exported {format_day(provenance.exported_at)}
       {commit ? (
         <>
-          {" "}from commit <a href={`${capstone_repo_url}/tree/${commit}`}>{commit.slice(0, 7)}</a> (
+          {" "}from capstone commit <span className="mono">{commit.slice(0, 7)}</span> (
           {format_day(provenance.capstone_commit_date)})
         </>
       ) : null}
@@ -48,20 +46,22 @@ export function CreditsSection() {
           </h2>
         </div>
 
-        <ul className="credits_links">
-          <li>
-            <a href={capstone_repo_url}>Project repository</a>
-            <span>Code, configuration, pre-registration and every figure's data</span>
-          </li>
-          <li>
-            <a href={`${capstone_repo_url}/blob/main/docs/PREREGISTRATION.md`}>Pre-registration</a>
-            <span>Hypotheses and analysis plan, committed before training</span>
-          </li>
-          <li>
-            <a href={`${capstone_repo_url}/blob/main/LICENSE`}>MIT License</a>
-            <span>For the project code</span>
-          </li>
-        </ul>
+        <dl className="credits_facts">
+          <div>
+            <dt>Source code</dt>
+            <dd>Available on demand</dd>
+          </div>
+          <div>
+            <dt>Research paper</dt>
+            <dd>Under review</dd>
+          </div>
+          <div>
+            <dt>Method</dt>
+            <dd>
+              Pre-registered before training; the full plan and every test are in <a href="#deep_dive">§5</a>
+            </dd>
+          </div>
+        </dl>
       </div>
 
       <div className="page_width credits_base">

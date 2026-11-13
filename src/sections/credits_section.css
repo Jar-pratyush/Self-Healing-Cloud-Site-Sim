@@ -16,29 +16,32 @@
   max-width: 22ch;
 }
 
-.credits_links {
-  list-style: none;
-  margin: 0;
-  padding: 0;
+.credits_facts {
   display: grid;
   gap: 18px;
+  margin: 0;
 }
 
-.credits_links li {
+.credits_facts div {
   display: grid;
   gap: 2px;
   padding-bottom: 16px;
   border-bottom: 1px solid var(--color_line_soft);
 }
 
-.credits_links a {
-  font-weight: 500;
-  font-size: 17px;
+.credits_facts dt {
+  font-family: var(--font_mono);
+  font-size: 12px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color_text_faint);
 }
 
-.credits_links span {
-  font-size: 14.5px;
-  color: var(--color_text_muted);
+.credits_facts dd {
+  margin: 0;
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--color_text);
 }
 
 .credits_base {
@@ -62,10 +65,6 @@
 
 .credits_provenance {
   margin-left: auto;
-}
-
-.credits_provenance a {
-  color: var(--color_text_muted);
 }
 
 @media (max-width: 760px) {
