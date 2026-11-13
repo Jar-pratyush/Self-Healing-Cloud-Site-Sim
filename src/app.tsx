@@ -6,7 +6,7 @@ import { HeroSection } from "./sections/hero_section";
 import { HowItWorksSection } from "./sections/how_it_works_section";
 import { ProblemSection } from "./sections/problem_section";
 import { ReplaySection } from "./sections/replay/replay_section";
-import { ResultsSection } from "./sections/results_section";
+import { ResultsSection } from "./sections/results/results_section";
 
 export function App() {
   return (
